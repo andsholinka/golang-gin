@@ -11,12 +11,7 @@ func init() {
 	initializers.CoonetToDB()
 }
 
-// var (
-// 	DB *gorm.DB = initializers.SetupDBConnection()
-// )
-
 func main() {
-	// defer initializers.CloseDBConnection(DB)
 	r := gin.Default()
 
 	r.GET("/", controllers.Home)
