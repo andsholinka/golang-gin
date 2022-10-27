@@ -95,6 +95,14 @@ func PostsUpdate(c *gin.Context) {
 	initializers.DB.First(&post, id)
 
 	// Validate
+	if post.Title == "" {
+		// fmt.Println("record not found")
+		c.JSON(http.StatusNotFound, gin.H{
+			"status":  "Not Found",
+			"message": `Post with ID Not Found`,
+		})
+		return
+	}
 
 	// Update it
 	initializers.DB.Model(&post).Updates(models.Post{
@@ -113,6 +121,20 @@ func PostsUpdate(c *gin.Context) {
 func PostsDelete(c *gin.Context) {
 	// Get id from url
 	id := c.Param("id")
+
+	// Find the data were updating
+	var post models.Post
+	initializers.DB.First(&post, id)
+
+	// Validate
+	if post.Title == "" {
+		// fmt.Println("record not found")
+		c.JSON(http.StatusNotFound, gin.H{
+			"status":  "Not Found",
+			"message": `Post with ID Not Found`,
+		})
+		return
+	}
 
 	// Delete the data
 	initializers.DB.Delete(&models.Post{}, id)
