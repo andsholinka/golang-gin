@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/andsholinka/golang-gin/controllers"
 	"github.com/andsholinka/golang-gin/initializers"
+	"github.com/andsholinka/golang-gin/models"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,6 +13,7 @@ func init() {
 }
 
 func main() {
+	initializers.DB.AutoMigrate(&models.Post{})
 	r := gin.Default()
 
 	r.GET("/", controllers.Home)
